@@ -3,3 +3,23 @@ title: "Cours_r_partie_3"
 ---
 
 
+# Question 1 : import des données 
+```{r}
+library(readxl)
+df_velo <- read.csv2("data/velo.csv")
+```
+
+## Df 
+
+```{r}
+df_b_665 <- df_velo[df_velo$Boucle.de.comptage == "665 - Bonduelle vers Nord", ] 
+
+df_b_788 <- df_velo[df_velo$Boucle.de.comptage == "744 - Calvaire vers Est" , ]
+
+```
+
+```{r}
+df_d_2811 <- df_velo[df_velo$Date == "2025-11-28", ]
+df_d_3012 <- df_velo[df_velo$Date == "2025-12-30", ]
+```
+

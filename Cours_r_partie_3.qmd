@@ -116,4 +116,28 @@ print(paste("Le nombre de boucles le 28 novembre est de :", nb_boucles_2811))
 Nous aurions pu prédire certains résultat car si nous avons un data frame sur une des boucles alors dedans se trouve que cette boucle a vélo de réalisé ainsi le nombre de boucles réalisé dans ce data frame est de 1 
 et pour le nombre de boucles rélalisé sur un jour précis cela est pareil nous aurions pu le prédire chaque jours toutes nos boucles sont réalisés.
 
+# QUestion 5 
+```{r}
+trouver_trajet_max <- function(df){
+  df |> 
+    group_by(Boucle.de.comptage, Jour) |>
+    summarise(nb_passages = sum(Total, na.rm = TRUE), .groups = "drop")|>
+     arrange(desc(nb_passages)) |>         
+    slice(1)  
+}
+```
+
+```{r}
+max_trajet_2811 <- trouver_trajet_max(df_d_2811)
+print(max_trajet_2811)
+
+max_trajet_3012 <- trouver_trajet_max(df_d_3012)
+print(max_trajet_3012)
+
+max_trajet_665 <- trouver_trajet_max(df_b_665)
+print(max_trajet_665)
+
+max_trajet_788 <- trouver_trajet_max(df_b_788)
+print(max_trajet_788)
+```
 

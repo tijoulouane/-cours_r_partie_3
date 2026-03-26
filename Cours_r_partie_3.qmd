@@ -12,6 +12,12 @@ df_velo <- read.csv2("data/velo.csv")
 ## Df 
 
 ```{r}
+library(dplyr)
+df_velo <- df_velo |> 
+  rename(anomalies = `Probabilité.de.présence.d.anomalies`)
+```
+
+```{r}
 df_b_665 <- df_velo[df_velo$Boucle.de.comptage == "665 - Bonduelle vers Nord", ] 
 
 df_b_788 <- df_velo[df_velo$Boucle.de.comptage == "744 - Calvaire vers Est" , ]
@@ -21,5 +27,60 @@ df_b_788 <- df_velo[df_velo$Boucle.de.comptage == "744 - Calvaire vers Est" , ]
 ```{r}
 df_d_2811 <- df_velo[df_velo$Date == "2025-11-28", ]
 df_d_3012 <- df_velo[df_velo$Date == "2025-12-30", ]
+```
+
+# QUestion 2 
+
+```{r}
+filtre_anomalie <- function(df) {
+  df |>
+    filter(!anomalies %in% c("Forte", "Faible"))
+}
+```
+
+
+```{r}
+df_b_665_clean <- filtre_anomalie(df_b_665)
+df_b_788_clean <- filtre_anomalie(df_b_788)
+df_d_2811_clean <- filtre_anomalie(df_d_2811)
+df_d_3012_clean <- filtre_anomalie(df_d_3012)
+```
+
+
+```{r}
+lignes_filtrees <- c(
+  b_665 = nrow(df_b_665) - nrow(df_b_665_clean),
+  b_788 = nrow(df_b_788) - nrow(df_b_788_clean),
+  d_0105 = nrow(df_d_2811) - nrow(df_d_2811_clean),
+  d_1505 = nrow(df_d_3012) - nrow(df_d_3012_clean)
+)
+
+lignes_filtrees
+```
+
+# Question 3 
+
+```{r}
+compter_nombre_trajets <- function(df){
+  # compte le nombre total de trajet référencé 
+   x <- sum(df$Total)
+    return(x)
+}
+
+```
+
+```{r}
+nb_trajet_665 <- compter_nombre_trajets(df_b_665)
+print(paste("Le nombre de trajet sur la boucle 665 est de :", nb_trajet_665))
+
+nb_trajet_788 <- compter_nombre_trajets(df_b_788)
+print(paste("Le nombre de trajet sur la boucle 788 est de :", nb_trajet_788))
+
+
+nb_trajet_3012 <- compter_nombre_trajets(df_d_3012)
+print(paste("Le nombre de trajet le 30 décembre est de :", nb_trajet_3012))
+
+nb_trajet_2811 <- compter_nombre_trajets(df_d_2811)
+print(paste("Le nombre de trajet le 28 novembre est de :", nb_trajet_2811))
 ```
 

@@ -14,7 +14,8 @@ df_velo <- read.csv2("data/velo.csv")
 ```{r}
 library(dplyr)
 df_velo <- df_velo |> 
-  rename(anomalies = `Probabilité.de.présence.d.anomalies`)
+  rename(anomalies = `Probabilité.de.présence.d.anomalies`,
+         Boucles = `Numéro.de.boucle`)
 ```
 
 ```{r}
@@ -83,4 +84,36 @@ print(paste("Le nombre de trajet le 30 décembre est de :", nb_trajet_3012))
 nb_trajet_2811 <- compter_nombre_trajets(df_d_2811)
 print(paste("Le nombre de trajet le 28 novembre est de :", nb_trajet_2811))
 ```
+
+# Question 4 
+
+```{r}
+compter_nombre_boucle <- function(df){
+  # nombre de boucles 
+  
+  x <- n_distinct(df$Boucles)
+  return(x)
+}
+```
+
+
+```{r}
+
+nb_boucle_665 <- compter_nombre_boucle(df_b_665)
+print(paste("Le nombre de boucle sur la boucle 665 est de :", nb_boucle_665))
+
+nb_boucle_788 <- compter_nombre_boucle(df_b_788)
+print(paste("Le nombre de boucle sur la boucle 788 est de :", nb_boucle_788))
+
+
+nb_buocles_3012 <- compter_nombre_boucle(df_d_3012)
+print(paste("Le nombre de boucles le 30 décembre est de :", nb_buocles_3012))
+
+nb_boucles_2811 <- compter_nombre_boucle(df_d_2811)
+print(paste("Le nombre de boucles le 28 novembre est de :", nb_boucles_2811))
+```
+
+Nous aurions pu prédire certains résultat car si nous avons un data frame sur une des boucles alors dedans se trouve que cette boucle a vélo de réalisé ainsi le nombre de boucles réalisé dans ce data frame est de 1 
+et pour le nombre de boucles rélalisé sur un jour précis cela est pareil nous aurions pu le prédire chaque jours toutes nos boucles sont réalisés.
+
 
